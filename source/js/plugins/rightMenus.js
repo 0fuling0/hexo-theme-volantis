@@ -564,44 +564,50 @@ RightMenus.fun = (() => {
     }, 50);
   }
 
-  fn.readMode = () => {
-    if (typeof ScrollReveal === 'function') ScrollReveal().clean('#comments');
-    DOMController.setStyle('#l_header', 'opacity', 0);
-    DOMController.fadeToggleList([
-      document.querySelector('#l_cover'), document.querySelector('footer'),
-      document.querySelector('#s-top'), document.querySelector('.article-meta#bottom'),
-      document.querySelector('.prev-next'), document.querySelector('#l_side'),
-      document.querySelector('#comments'),
-    ]);
-    DOMController.toggleClassList([
-      [document.querySelector('#l_main'), 'common_read'], [document.querySelector('#l_main'), 'common_read_main'],
-      [document.querySelector('#l_body'), 'common_read'], [document.querySelector('#safearea'), 'common_read'],
-      [document.querySelector('#pjax-container'), 'common_read'], [document.querySelector('#read_bkg'), 'common_read_hide'],
-      [document.querySelector('h1'), 'common_read_h1'], [document.querySelector('#post'), 'post_read'],
-      [document.querySelector('#l_cover'), 'read_cover'], [document.querySelector('.widget.toc-wrapper'), 'post_read']
-    ]);
-    DOMController.setStyle('.copyright.license', 'margin', '15px 0');
-    volantis.isReadModel = volantis.isReadModel === undefined ? true : !volantis.isReadModel;
-    if (volantis.isReadModel) {
-      if (RightMenus.messageRightMenu) VolantisApp.message('系统提示', '阅读模式已开启，您可以点击屏幕空白处退出。', {
-        backgroundColor: 'var(--color-read-post)',
-        icon: rightMenuConfig.options.iconPrefix + ' fa-book-reader',
-        displayMode: 1,
-        time: 5000
-      });
-      document.querySelector('#l_body').removeEventListener('click', fn.readMode);
-      document.querySelector('#l_body').addEventListener('click', (event) => {
-        if (DOMController.hasClass(event.target, 'common_read')) {
-          fn.readMode();
-        }
-      });
-    } else {
-      document.querySelector('#l_body').removeEventListener('click', fn.readMode);
-      document.querySelector('#post').removeEventListener('click', fn.readMode);
-      DOMController.setStyle('.prev-next', 'display', 'flex');
-      DOMController.setStyle('.copyright.license', 'margin', '15px -40px');
-    }
+fn.readMode = () => {
+  if (typeof ScrollReveal === 'function') ScrollReveal().clean('#comments');
+  DOMController.setStyle('#l_header', 'opacity', 0);
+  DOMController.fadeToggleList([
+    document.querySelector('#l_cover'), document.querySelector('footer'),
+    document.querySelector('#s-top'), document.querySelector('.article-meta#bottom'),
+    document.querySelector('.prev-next'), document.querySelector('#l_side'),
+    document.querySelector('#comments'),
+  ]);
+  DOMController.toggleClassList([
+    [document.querySelector('#l_main'), 'common_read'], [document.querySelector('#l_main'), 'common_read_main'],
+    [document.querySelector('#l_body'), 'common_read'], [document.querySelector('#safearea'), 'common_read'],
+    [document.querySelector('#pjax-container'), 'common_read'], [document.querySelector('#read_bkg'), 'common_read_hide'],
+    [document.querySelector('h1'), 'common_read_h1'], [document.querySelector('#post'), 'post_read'],
+    [document.querySelector('#l_cover'), 'read_cover'], [document.querySelector('.widget.toc-wrapper'), 'post_read']
+  ]);
+  DOMController.setStyle('.copyright.license', 'margin', '15px 0');
+  volantis.isReadModel = volantis.isReadModel === undefined ? true : !volantis.isReadModel;
+  
+  if (volantis.isReadModel) {
+    if (RightMenus.messageRightMenu) VolantisApp.message('系统提示', '阅读模式已开启，您可以点击屏幕空白处退出。', {
+      backgroundColor: 'var(--color-read-post)',
+      icon: rightMenuConfig.options.iconPrefix + ' fa-book-reader',
+      displayMode: 1,
+      time: 5000
+    });
+    document.querySelector('#l_body').removeEventListener('click', fn.readMode);
+    document.querySelector('#l_body').addEventListener('click', (event) => {
+      if (DOMController.hasClass(event.target, 'common_read')) {
+        fn.readMode();
+      }
+    });
+  } else {
+    document.querySelector('#l_body').removeEventListener('click', fn.readMode);
+    document.querySelector('#post').removeEventListener('click', fn.readMode);
+    
+    // 恢复 header 透明度
+    DOMController.setStyle('#l_header', 'opacity', 1);
+    
+    DOMController.setStyle('.prev-next', 'display', 'flex');
+    DOMController.setStyle('.copyright.license', 'margin', '15px -40px');
   }
+}
+
 
   return {
     init: fn.initEvent,

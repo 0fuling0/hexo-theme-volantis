@@ -1,11 +1,11 @@
 #l_side .toc-wrapper
   z-index: 1
   overflow: hidden
-  border-radius: $border-card
+  border-radius: $border-card  
   //position: sticky
   //top: $navbar-height + $gap
   trans()
-  line-height: 1.6
+  line-height: 1.6  
   header
     position: sticky
     width: 100%
@@ -21,8 +21,7 @@
       &:hover
         list_hover()
         border-left: $border-line solid $color-theme
-
-
+	
   trans()
   @media screen and (max-width: $device-tablet)
     z-index: 1001
@@ -34,7 +33,7 @@
     right: $gap
     border-radius: $border-card * 0.5
     box-shadow: $boxshadow-float
-    border: 1px solid darken($color-block, 6)
+    border: 1px solid var(--color-block)
     visibility: hidden
     transform: scale(0,0)
     transform-origin: right top
