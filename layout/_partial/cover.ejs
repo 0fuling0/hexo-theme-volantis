@@ -5,10 +5,16 @@
         <%- partial("./_cover/layout") %>
         <div id="scroll-down"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
       </div>
-    <% } else { %>
+    <% } else if (theme.cover.height_scheme == 'half') { %>
       <div class="cover-wrapper <%- page.layout %> <%- theme.cover.layout_scheme %>" id='half'>
         <%- partial("./_cover/layout") %>
       </div>
+    <% } else { %>
+      <div class="cover-wrapper <%- page.layout %> <%- theme.cover.layout_scheme %>" id='none'>
+        <%- partial("./_cover/layout") %>
+      </div>      
     <% } %>
   <% } %>
 </div>
+
+
