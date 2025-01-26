@@ -1,6 +1,5 @@
 <%- partial('_pre') %>
 <section class="widget blur floatable <%- item.class %> <%- page.widget_platform %> ">
-  <%- partial('header', {item: item}) %>
   <div class='content'>
     <% if (item.avatar) { %>
       <% if (item.url) { %>
@@ -28,7 +27,7 @@
       </div>
     <% } %>
     <% if (item.social && item.social.length > 0) { %>
-      <div class="social-wrapper" style="display: flex;">
+      <div class="social-wrapper">
         <% getList(item.social).forEach(function(value){ %>
           <% if (value.url && (value.icon || value.img || value.avatar)) { %>
             <a href="<%= url_for(value.url) %>"
